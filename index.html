@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ajay Venkat A — AI & Data Science</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --bg:#0d0d0d;--surface:#141414;--surface2:#1a1a1a;
+    --accent:#6ee7b7;--accent2:#a78bfa;--accent3:#fbbf24;
+    --text:#f0f0f0;--muted:#888;--border:rgba(255,255,255,0.07);
+  }
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;}
+  a{color:inherit;text-decoration:none;}
+
+  nav{
+    position:fixed;top:0;width:100%;z-index:99;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1.1rem 3rem;background:rgba(13,13,13,0.85);backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--border);
+  }
+  .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;letter-spacing:0.02em;}
+  .logo span{color:var(--accent);}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{font-size:0.8rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-btn{
+    font-size:0.75rem;padding:0.5rem 1.2rem;background:var(--accent);
+    color:#0d0d0d;font-weight:600;border:none;cursor:pointer;
+    font-family:'Inter',sans-serif;letter-spacing:0.06em;text-transform:uppercase;
+    transition:opacity 0.2s;border-radius:4px;
+  }
+  .nav-btn:hover{opacity:0.85;}
+
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+    padding:7rem 3rem 4rem;position:relative;overflow:hidden;
+  }
+  .hero-chip{
+    display:inline-flex;align-items:center;gap:0.5rem;
+    font-size:0.72rem;color:var(--accent);letter-spacing:0.15em;text-transform:uppercase;
+    border:1px solid rgba(110,231,183,0.25);padding:0.35rem 0.85rem;border-radius:20px;
+    margin-bottom:2rem;width:fit-content;
+    animation:fadeup 0.7s ease both;
+  }
+  .chip-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:blink 2s infinite;flex-shrink:0;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+  .hero h1{
+    font-family:'Syne',sans-serif;font-weight:800;
+    font-size:clamp(3rem,7vw,6.5rem);line-height:0.95;letter-spacing:-0.03em;
+    animation:fadeup 0.7s 0.1s ease both;
+  }
+  .hero h1 .name-line{display:block;}
+  .hero h1 .tag-line{display:block;color:var(--muted);font-weight:400;font-size:clamp(1.2rem,2.5vw,2.2rem);letter-spacing:0em;margin-top:0.5rem;font-family:'Inter',sans-serif;}
+  .hero-sub{
+    max-width:520px;margin-top:1.8rem;font-size:1rem;line-height:1.8;color:var(--muted);
+    animation:fadeup 0.7s 0.2s ease both;
+  }
+  .hero-actions{
+    display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;
+    animation:fadeup 0.7s 0.3s ease both;
+  }
+  .btn-fill{
+    padding:0.8rem 2rem;background:var(--accent);color:#0d0d0d;
+    font-weight:600;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;
+    border:none;cursor:pointer;border-radius:6px;transition:opacity 0.2s;display:inline-block;
+  }
+  .btn-fill:hover{opacity:0.85;}
+  .btn-ghost{
+    padding:0.8rem 2rem;background:transparent;color:var(--text);
+    font-weight:500;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;
+    border:1px solid var(--border);cursor:pointer;border-radius:6px;transition:border-color 0.2s;display:inline-block;
+  }
+  .btn-ghost:hover{border-color:rgba(255,255,255,0.3);}
+  .hero-links{
+    display:flex;gap:1.5rem;margin-top:3rem;flex-wrap:wrap;
+    animation:fadeup 0.7s 0.4s ease both;
+  }
+  .hero-link{
+    font-size:0.78rem;color:var(--muted);display:flex;align-items:center;gap:0.4rem;
+    letter-spacing:0.06em;transition:color 0.2s;border-bottom:1px solid transparent;padding-bottom:2px;
+  }
+  .hero-link:hover{color:var(--text);border-bottom-color:var(--muted);}
+  @keyframes fadeup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+  .marquee-wrap{
+    overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    padding:1rem 0;background:var(--surface);
+  }
+  .marquee{display:flex;gap:3rem;white-space:nowrap;animation:scroll 22s linear infinite;}
+  .marquee-item{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);flex-shrink:0;}
+  .marquee-dot{color:var(--accent);font-size:1rem;line-height:1;}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  section{padding:5rem 3rem;}
+  .sec-label{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem;}
+  .sec-title{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,3vw,2.5rem);font-weight:700;line-height:1.1;}
+  .sec-head{margin-bottom:3rem;}
+
+  #certs{background:var(--surface);}
+  .certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--border);}
+  .cert-card{
+    background:var(--surface);padding:1.8rem;transition:background 0.25s;
+    position:relative;overflow:hidden;
+  }
+  .cert-card:hover{background:var(--surface2);}
+  .cert-issuer{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem;}
+  .cert-name{font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:600;line-height:1.3;color:var(--text);}
+  .cert-badge{
+    display:inline-block;margin-top:0.8rem;font-size:0.65rem;padding:0.25rem 0.6rem;
+    border-radius:20px;letter-spacing:0.08em;text-transform:uppercase;font-weight:500;
+  }
+  .badge-green{background:rgba(110,231,183,0.1);color:var(--accent);}
+  .badge-purple{background:rgba(167,139,250,0.1);color:var(--accent2);}
+  .badge-yellow{background:rgba(251,191,36,0.1);color:var(--accent3);}
+  .cert-accent{
+    position:absolute;bottom:0;left:0;right:0;height:2px;
+    transform:scaleX(0);transform-origin:left;transition:transform 0.3s;
+  }
+  .cert-card:hover .cert-accent{transform:scaleX(1);}
+  .ca-green{background:var(--accent);}
+  .ca-purple{background:var(--accent2);}
+  .ca-yellow{background:var(--accent3);}
+
+  .skills-wrap{display:flex;flex-wrap:wrap;gap:0.6rem;}
+  .skill-pill{
+    padding:0.45rem 1rem;border:1px solid var(--border);border-radius:20px;
+    font-size:0.8rem;color:var(--muted);transition:all 0.2s;cursor:default;background:var(--surface);
+  }
+  .skill-pill:hover{border-color:rgba(110,231,183,0.4);color:var(--accent);}
+  .skills-cats{display:flex;flex-direction:column;gap:2rem;}
+  .cat-label{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;}
+
+  #experience{background:var(--surface);}
+  .exp-list{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .exp-item{
+    padding:1.8rem 2rem;border-bottom:1px solid var(--border);
+    display:grid;grid-template-columns:auto 1fr auto;gap:1.5rem;align-items:start;
+    background:var(--surface);transition:background 0.2s;
+  }
+  .exp-item:last-child{border-bottom:none;}
+  .exp-item:hover{background:var(--surface2);}
+  .exp-num{font-family:'Syne',sans-serif;font-size:0.75rem;color:var(--muted);padding-top:3px;width:24px;}
+  .exp-org{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:0.3rem;}
+  .exp-role{font-size:0.82rem;color:var(--muted);line-height:1.6;}
+  .exp-skills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.8rem;}
+  .exp-skill{font-size:0.68rem;padding:0.2rem 0.6rem;border:1px solid var(--border);border-radius:3px;color:var(--muted);}
+  .exp-dur{font-size:0.72rem;color:var(--muted);white-space:nowrap;padding-top:3px;}
+
+  .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--border);}
+  .proj-card{
+    background:var(--bg);padding:2rem;transition:background 0.25s;position:relative;
+    display:flex;flex-direction:column;gap:0.8rem;
+  }
+  .proj-card:hover{background:var(--surface);}
+  .proj-num{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);}
+  .proj-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;}
+  .proj-desc{font-size:0.85rem;color:var(--muted);line-height:1.7;flex:1;}
+  .proj-stack{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.4rem;}
+  .proj-tag{font-size:0.65rem;padding:0.2rem 0.5rem;border:1px solid var(--border);border-radius:3px;color:var(--muted);}
+  .proj-link{
+    font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--accent);display:flex;align-items:center;gap:0.3rem;margin-top:0.4rem;
+    transition:gap 0.2s;width:fit-content;
+  }
+  .proj-link:hover{gap:0.7rem;}
+
+  #testimonials{background:var(--surface);}
+  .testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .testi-card{background:var(--surface);padding:1.8rem;transition:background 0.2s;}
+  .testi-card:hover{background:var(--surface2);}
+  .testi-q{font-size:1.8rem;color:var(--accent);line-height:1;margin-bottom:0.5rem;font-family:'Syne',sans-serif;}
+  .testi-text{font-size:0.88rem;color:var(--muted);line-height:1.8;font-style:italic;}
+  .testi-person{display:flex;align-items:center;gap:0.8rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--border);}
+  .testi-av{
+    width:36px;height:36px;border-radius:50%;background:var(--surface2);
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.75rem;font-weight:600;color:var(--accent);border:1px solid rgba(110,231,183,0.2);flex-shrink:0;
+  }
+  .testi-name{font-size:0.82rem;font-weight:500;}
+  .testi-role{font-size:0.72rem;color:var(--muted);}
+
+  .contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start;}
+  .contact-left p{font-size:0.92rem;color:var(--muted);line-height:1.9;margin:1rem 0 2rem;}
+  .contact-detail{display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem;}
+  .contact-detail a,.contact-detail span{font-size:0.85rem;color:var(--muted);transition:color 0.2s;}
+  .contact-detail a:hover{color:var(--accent);}
+  .c-icon{width:32px;height:32px;border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .c-icon i{font-size:14px;color:var(--muted);}
+  .contact-form{display:flex;flex-direction:column;gap:1rem;}
+  .flabel{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem;display:block;}
+  .finput,.ftextarea{
+    width:100%;background:var(--surface);border:1px solid var(--border);
+    padding:0.8rem 1rem;color:var(--text);font-family:'Inter',sans-serif;font-size:0.88rem;
+    outline:none;transition:border-color 0.2s;border-radius:6px;
+  }
+  .finput:focus,.ftextarea:focus{border-color:rgba(110,231,183,0.4);}
+  .finput::placeholder,.ftextarea::placeholder{color:var(--muted);}
+  .ftextarea{height:120px;resize:none;}
+
+  footer{
+    border-top:1px solid var(--border);padding:2rem 3rem;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+  }
+  .footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:0.95rem;}
+  .footer-logo span{color:var(--accent);}
+  .footer-copy{font-size:0.72rem;color:var(--muted);}
+  .footer-socials{display:flex;gap:1.2rem;}
+  .footer-socials a{font-size:0.72rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;}
+  .footer-socials a:hover{color:var(--accent);}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:all 0.6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  @media(max-width:700px){
+    nav{padding:1rem 1.2rem;}
+    .nav-links{display:none;}
+    section{padding:3.5rem 1.2rem;}
+    .hero{padding:6rem 1.2rem 3rem;}
+    .contact-grid{grid-template-columns:1fr;}
+    footer{flex-direction:column;text-align:center;}
+    .exp-item{grid-template-columns:1fr;gap:0.5rem;}
+    .exp-dur{padding-top:0;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Ajay<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#certs">Certs</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-btn" href="#contact">Let's Talk</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-chip"><span class="chip-dot"></span>Open to Internships & Collaborations</div>
+  <h1>
+    <span class="name-line">Ajay Venkat A</span>
+    <span class="tag-line">AI & Data Science Student</span>
+  </h1>
+  <p class="hero-sub">Building intelligent systems at the intersection of machine learning, data science, and agentic AI. Certified by Anthropic, Google, Microsoft & Udemy.</p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn-fill">View Projects</a>
+    <a href="#contact" class="btn-ghost">Say Hello</a>
+  </div>
+  <div class="hero-links">
+    <a href="https://github.com/ajay-venkat/" class="hero-link" target="_blank">
+      <i class="ti ti-brand-github" style="font-size:14px"></i>github.com/ajay-venkat
+    </a>
+    <a href="https://www.linkedin.com/in/ajay-venkat-a-980738326" class="hero-link" target="_blank">
+      <i class="ti ti-brand-linkedin" style="font-size:14px"></i>LinkedIn
+    </a>
+    <a href="mailto:venkatajay719@gmail.com" class="hero-link">
+      <i class="ti ti-mail" style="font-size:14px"></i>venkatajay719@gmail.com
+    </a>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span class="marquee-item">Machine Learning</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Generative AI</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Agentic AI</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Data Science</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Python</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Power BI</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">React Native</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Android Studio</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Business Analysis</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Cloud Security</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Machine Learning</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Generative AI</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Agentic AI</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Data Science</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Python</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Power BI</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">React Native</span><span class="marquee-dot">·</span>
+    <span class="marquee-item">Android Studio</span><span class="marquee-dot">·</span>
+  </div>
+</div>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="sec-head reveal">
+    <div class="sec-label">Verified</div>
+    <div class="sec-title">Certifications</div>
+  </div>
+  <div class="certs-grid reveal">
+    <div class="cert-card">
+      <div class="cert-issuer">Anthropic</div>
+      <div class="cert-name">Agentic AI</div>
+      <span class="cert-badge badge-green">Certified</span>
+      <div class="cert-accent ca-green"></div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">Microsoft</div>
+      <div class="cert-name">Generative AI for Data Science</div>
+      <span class="cert-badge badge-purple">Certified</span>
+      <div class="cert-accent ca-purple"></div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">Google</div>
+      <div class="cert-name">Generative AI for Educators</div>
+      <span class="cert-badge badge-yellow">Certified</span>
+      <div class="cert-accent ca-yellow"></div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">Google Cloud</div>
+      <div class="cert-name">Cybersecurity</div>
+      <span class="cert-badge badge-yellow">Certified</span>
+      <div class="cert-accent ca-yellow"></div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">Udemy</div>
+      <div class="cert-name">AI & Python Development</div>
+      <span class="cert-badge badge-green">Certified</span>
+      <div class="cert-accent ca-green"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-head reveal">
+    <div class="sec-label">What I know</div>
+    <div class="sec-title">Skills & Tools</div>
+  </div>
+  <div class="skills-cats reveal">
+    <div>
+      <div class="cat-label">AI & Data</div>
+      <div class="skills-wrap">
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">Machine Learning</span>
+        <span class="skill-pill">Deep Learning</span>
+        <span class="skill-pill">Generative AI</span>
+        <span class="skill-pill">Agentic AI</span>
+        <span class="skill-pill">NLP</span>
+        <span class="skill-pill">Scikit-learn</span>
+        <span class="skill-pill">TensorFlow</span>
+        <span class="skill-pill">Pandas</span>
+        <span class="skill-pill">NumPy</span>
+      </div>
+    </div>
+    <div>
+      <div class="cat-label">Development & Tools</div>
+      <div class="skills-wrap">
+        <span class="skill-pill">Android Studio</span>
+        <span class="skill-pill">React Native</span>
+        <span class="skill-pill">Power BI</span>
+        <span class="skill-pill">SQL</span>
+        <span class="skill-pill">Git & GitHub</span>
+        <span class="skill-pill">Google Cloud</span>
+        <span class="skill-pill">Tableau</span>
+        <span class="skill-pill">R</span>
+      </div>
+    </div>
+    <div>
+      <div class="cat-label">Business & Analysis</div>
+      <div class="skills-wrap">
+        <span class="skill-pill">Business Analysis</span>
+        <span class="skill-pill">Data Visualization</span>
+        <span class="skill-pill">App Development</span>
+        <span class="skill-pill">Cloud Security</span>
+        <span class="skill-pill">Project Management</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-head reveal">
+    <div class="sec-label">Where I've been</div>
+    <div class="sec-title">Experience & Training</div>
+  </div>
+  <div class="exp-list reveal">
+    <div class="exp-item">
+      <div class="exp-num">01</div>
+      <div class="exp-body">
+        <div class="exp-org">Techknots Pvt. Ltd.</div>
+        <div class="exp-role">Power BI training — data dashboards, business intelligence and reporting fundamentals.</div>
+        <div class="exp-skills">
+          <span class="exp-skill">Power BI</span>
+          <span class="exp-skill">Data Reporting</span>
+          <span class="exp-skill">Business Intelligence</span>
+        </div>
+      </div>
+      <div class="exp-dur">30 days</div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-num">02</div>
+      <div class="exp-body">
+        <div class="exp-org">Towards Technology</div>
+        <div class="exp-role">MIT App Development — hands-on mobile app building using MIT App Inventor, logic design and deployment.</div>
+        <div class="exp-skills">
+          <span class="exp-skill">MIT App Inventor</span>
+          <span class="exp-skill">App Development</span>
+          <span class="exp-skill">Mobile UI</span>
+        </div>
+      </div>
+      <div class="exp-dur">30 days</div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-num">03</div>
+      <div class="exp-body">
+        <div class="exp-org">Transvaal Training</div>
+        <div class="exp-role">Intensive programme covering Business Analysis, Machine Learning and Artificial Intelligence fundamentals.</div>
+        <div class="exp-skills">
+          <span class="exp-skill">Business Analysis</span>
+          <span class="exp-skill">Machine Learning</span>
+          <span class="exp-skill">AI</span>
+        </div>
+      </div>
+      <div class="exp-dur">30 days</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-head reveal">
+    <div class="sec-label">What I've built</div>
+    <div class="sec-title">Projects</div>
+  </div>
+  <div class="proj-grid reveal">
+    <div class="proj-card">
+      <div class="proj-num">01</div>
+      <div class="proj-title">Sentiment Analysis Engine</div>
+      <div class="proj-desc">NLP pipeline to classify text sentiment using transformer models, fine-tuned on domain-specific datasets with 94% accuracy.</div>
+      <div class="proj-stack">
+        <span class="proj-tag">Python</span><span class="proj-tag">BERT</span><span class="proj-tag">NLP</span>
+      </div>
+      <a href="https://github.com/ajay-venkat/" class="proj-link" target="_blank">View on GitHub →</a>
+    </div>
+    <div class="proj-card">
+      <div class="proj-num">02</div>
+      <div class="proj-title">Power BI Sales Dashboard</div>
+      <div class="proj-desc">Interactive dashboard visualising sales KPIs, regional trends and forecasting for business decision support.</div>
+      <div class="proj-stack">
+        <span class="proj-tag">Power BI</span><span class="proj-tag">DAX</span><span class="proj-tag">Data Analysis</span>
+      </div>
+      <a href="https://github.com/ajay-venkat/" class="proj-link" target="_blank">View on GitHub →</a>
+    </div>
+    <div class="proj-card">
+      <div class="proj-num">03</div>
+      <div class="proj-title">Agentic AI Assistant</div>
+      <div class="proj-desc">Multi-step AI agent that autonomously plans, executes and reflects on tasks — built using agentic AI design patterns.</div>
+      <div class="proj-stack">
+        <span class="proj-tag">Python</span><span class="proj-tag">Agentic AI</span><span class="proj-tag">LLM</span>
+      </div>
+      <a href="https://github.com/ajay-venkat/" class="proj-link" target="_blank">View on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="sec-head reveal">
+    <div class="sec-label">Voices</div>
+    <div class="sec-title">What people say</div>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="testi-q">"</div>
+      <div class="testi-text">Ajay consistently goes beyond the syllabus — his grasp of agentic AI systems is impressive for a student at this stage.</div>
+      <div class="testi-person">
+        <div class="testi-av">P</div>
+        <div>
+          <div class="testi-name">Prof. Name</div>
+          <div class="testi-role">Faculty, AI & DS Dept.</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-q">"</div>
+      <div class="testi-text">Sharp analytical mind and a real drive to build things. Ajay's Power BI work during training stood out clearly.</div>
+      <div class="testi-person">
+        <div class="testi-av">M</div>
+        <div>
+          <div class="testi-name">Mentor, Techknots</div>
+          <div class="testi-role">Industry Trainer</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-q">"</div>
+      <div class="testi-text">A collaborative team player who brings creative problem-solving to every project. Great person to build with.</div>
+      <div class="testi-person">
+        <div class="testi-av">R</div>
+        <div>
+          <div class="testi-name">Peer / Classmate</div>
+          <div class="testi-role">Project Partner</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="reveal contact-left">
+      <div class="sec-head">
+        <div class="sec-label">Let's connect</div>
+        <div class="sec-title">Get in touch</div>
+      </div>
+      <p>Open to internships, research projects and collaborations in AI & data science. Reach out — I respond fast.</p>
+      <div class="contact-detail">
+        <div class="c-icon"><i class="ti ti-mail"></i></div>
+        <a href="mailto:venkatajay719@gmail.com">venkatajay719@gmail.com</a>
+      </div>
+      <div class="contact-detail">
+        <div class="c-icon"><i class="ti ti-brand-github"></i></div>
+        <a href="https://github.com/ajay-venkat/" target="_blank">github.com/ajay-venkat</a>
+      </div>
+      <div class="contact-detail">
+        <div class="c-icon"><i class="ti ti-brand-linkedin"></i></div>
+        <a href="https://www.linkedin.com/in/ajay-venkat-a-980738326" target="_blank">linkedin.com/in/ajay-venkat-a</a>
+      </div>
+      <div class="contact-detail">
+        <div class="c-icon"><i class="ti ti-map-pin"></i></div>
+        <span>Chennai, Tamil Nadu, India</span>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <div>
+        <label class="flabel">Your name</label>
+        <input class="finput" type="text" placeholder="What should I call you?">
+      </div>
+      <div>
+        <label class="flabel">Email</label>
+        <input class="finput" type="email" placeholder="your@email.com">
+      </div>
+      <div>
+        <label class="flabel">Message</label>
+        <textarea class="ftextarea" placeholder="What's on your mind?"></textarea>
+      </div>
+      <button class="btn-fill" style="width:100%;border:none;cursor:pointer;font-family:'Inter',sans-serif;">Send it</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Ajay<span>.</span></div>
+  <div class="footer-copy">2025 — AI & Data Science Student, Chennai</div>
+  <div class="footer-socials">
+    <a href="https://github.com/ajay-venkat/" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/ajay-venkat-a-980738326" target="_blank">LinkedIn</a>
+    <a href="mailto:venkatajay719@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
